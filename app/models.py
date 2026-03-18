@@ -11,6 +11,10 @@ class City(Base):
     name = Column(String, nullable=False)
     additional_info = Column(String)
 
+    # NEW: coordinates
+    latitude = Column(Float, nullable=False)
+    longitude = Column(Float, nullable=False)
+
     temperatures = relationship("Temperature", back_populates="city")
 
 

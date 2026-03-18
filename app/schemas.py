@@ -5,6 +5,8 @@ from datetime import datetime
 class CityBase(BaseModel):
     name: str
     additional_info: str | None = None
+    latitude: float
+    longitude: float
 
 
 class CityCreate(CityBase):

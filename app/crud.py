@@ -22,12 +22,8 @@ def delete_city(db: Session, city_id: int):
     return city
 
 
-def create_temperature(db: Session, city_id: int, temp: float):
-    record = models.Temperature(city_id=city_id, temperature=temp)
-    db.add(record)
-    db.commit()
-    db.refresh(record)
-    return record
+def create_temperature_record(city_id: int, temp: float):
+    return models.Temperature(city_id=city_id, temperature=temp)
 
 
 def get_temperatures(db: Session, city_id: int | None = None):

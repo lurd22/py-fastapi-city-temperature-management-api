@@ -1,8 +1,10 @@
 import httpx
 
-async def fetch_temperature(city_name: str) -> float:
-    # Example using Open-Meteo (no API key needed)
-    url = f"https://api.open-meteo.com/v1/forecast?current_weather=true&latitude=0&longitude=0"
+async def fetch_temperature(latitude: float, longitude: float) -> float:
+    url = (
+        f"https://api.open-meteo.com/v1/forecast"
+        f"?latitude={latitude}&longitude={longitude}&current_weather=true"
+    )
 
     async with httpx.AsyncClient() as client:
         response = await client.get(url)

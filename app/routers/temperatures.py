@@ -11,13 +11,18 @@ router = APIRouter(prefix="/temperatures", tags=["Temperatures"])
 async def update_temperatures(db: Session = Depends(get_db)):
     cities = db.query(models.City).all()
 
-    results = []
-    for city in cities:
-        temp = await fetch_temperature(city.name)
-        record = crud.create_temperature(db, city.id, temp)
-        results.append(record)
+    records = []
 
-    return results
+    for city in cities:
+        temp = await fetch_temperature(city.latitude, city.longitude)
+        record = crud.create_temperature_record(city.id, temp)
+        records.append(record)
+
+    # SINGLE COMMIT (FIX)
+    db.add_all(records)
+    db.commit()
+
+    return records
 
 
 @router.get("/")
